@@ -137,7 +137,7 @@ class FlagBuilder
      *                 variation index `0` for the first, `1` for the second, etc.
      * @return FlagBuilder the flag builder
      */
-    public function fallthroughVariation(bool|int $variation): FlagBuilder
+    public function fallthroughVariation($variation): FlagBuilder
     {
         if (is_bool($variation)) {
             $this->booleanFlag()->_fallthroughVariation = $this->variationForBoolean($variation);
@@ -178,7 +178,7 @@ class FlagBuilder
      * @param bool|int $variation either boolean variation or integer index of variation
      * @return FlagBuilder the flag builder
      */
-    public function offVariation(bool|int $variation): FlagBuilder
+    public function offVariation($variation): FlagBuilder
     {
         if (is_bool($variation)) {
             $this->booleanFlag()->_offVariation = $this->variationForBoolean($variation);
@@ -202,7 +202,7 @@ class FlagBuilder
      * @return FlagBuilder the flag builder
      * @see \LaunchDarkly\Integrations\TestData\FlagBuilder::valueForAll()
      */
-    public function variationForAll(bool|int $variation): FlagBuilder
+    public function variationForAll($variation): FlagBuilder
     {
         if (is_bool($variation)) {
             return $this->booleanFlag()->variationForAll($this->variationForBoolean($variation));
@@ -241,7 +241,7 @@ class FlagBuilder
      * @return FlagBuilder the flag builder
      * @see \LaunchDarkly\Integrations\TestData\FlagBuilder::variationForKey()
      */
-    public function variationForUser(string $userKey, bool|int $variation): FlagBuilder
+    public function variationForUser(string $userKey, $variation): FlagBuilder
     {
         return $this->variationForKey(LDContext::DEFAULT_KIND, $userKey, $variation);
     }
@@ -258,7 +258,7 @@ class FlagBuilder
      *                  `0` for the first, `1` for the second, etc.
      * @return FlagBuilder the flag builder
      */
-    public function variationForKey(string $contextKind, string $key, bool|int $variation): FlagBuilder
+    public function variationForKey(string $contextKind, string $key, $variation): FlagBuilder
     {
         if (is_bool($variation)) {
             return $this->booleanFlag()

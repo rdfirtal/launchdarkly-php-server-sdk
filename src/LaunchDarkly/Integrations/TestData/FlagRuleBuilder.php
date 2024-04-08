@@ -146,7 +146,7 @@ class FlagRuleBuilder
      * @param bool|int $variation the value to return if the rule matches the user
      * @return FlagBuilder the flag builder
      */
-    public function thenReturn(bool|int $variation): FlagBuilder
+    public function thenReturn($variation): FlagBuilder
     {
         if (is_bool($variation)) {
             $this->_flagBuilder->booleanFlag();

@@ -387,7 +387,7 @@ class LDClient
      * @param int|float|null $metricValue A numeric value used by the LaunchDarkly experimentation feature in
      *   numeric custom metrics; can be omitted if this event is used by only non-numeric metrics
      */
-    public function track(string $eventName, LDContext $context, mixed $data = null, int|float|null $metricValue = null): void
+    public function track(string $eventName, LDContext $context, mixed $data = null, $metricValue = null): void
     {
         if (!$context->isValid()) {
             $this->_logger->warning("Track called with null/empty user key!");

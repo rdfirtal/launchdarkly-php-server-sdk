@@ -120,7 +120,7 @@ class OpTracker
     *
     * @return array<string, mixed>|string
     */
-    public function build(): array|string
+    public function build()
     {
         if (!$this->operation) {
             return "operation not provided";

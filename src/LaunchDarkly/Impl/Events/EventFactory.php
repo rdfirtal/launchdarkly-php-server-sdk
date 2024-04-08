@@ -108,7 +108,7 @@ class EventFactory
     /**
      * @return mixed[]
      */
-    public function newCustomEvent(string $eventName, LDContext $context, mixed $data, int|float|null $metricValue): array
+    public function newCustomEvent(string $eventName, LDContext $context, mixed $data, $metricValue): array
     {
         $e = [
             'kind' => 'custom',

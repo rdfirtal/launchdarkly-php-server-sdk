@@ -271,7 +271,7 @@ class LDContextBuilder
      * @return LDContextBuilder the builder
      * @see \LaunchDarkly\LDContext::getPrivateAttributes()
      */
-    public function private(string|AttributeReference ...$attributeRefs): LDContextBuilder
+    public function private(...$attributeRefs): LDContextBuilder
     {
         if (count($attributeRefs) === 0) {
             return $this;

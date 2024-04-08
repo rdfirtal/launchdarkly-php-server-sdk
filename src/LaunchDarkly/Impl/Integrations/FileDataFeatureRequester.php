@@ -21,7 +21,7 @@ class FileDataFeatureRequester implements FeatureRequester
     /**
      * @param array|string $filePaths
      */
-    public function __construct(array|string $filePaths)
+    public function __construct($filePaths)
     {
         $this->_filePaths = is_array($filePaths) ? $filePaths : [$filePaths];
         $this->_flags = [];
