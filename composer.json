@@ -15,7 +15,6 @@
     ],
     "require": {
         "php": ">=8.1",
-        "monolog/monolog": "^2.0|^3.0",
         "psr/log": "^1.0|^2.0|^3.0"
     },
     "require-dev": {
@@ -28,7 +27,8 @@
     },
     "suggest": {
         "guzzlehttp/guzzle": "(^6.3 | ^7) Required when using GuzzleEventPublisher or the default FeatureRequester",
-        "kevinrob/guzzle-cache-middleware": "(^3) Recommended for performance when using the default FeatureRequester"
+        "kevinrob/guzzle-cache-middleware": "(^3) Recommended for performance when using the default FeatureRequester",
+        "monolog/monolog": "(^2.0|^3.0) If installed, the SDK will default to using Monolog for logging"
     },
     "autoload": {
         "psr-4": {

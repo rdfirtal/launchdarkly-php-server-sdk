@@ -19,9 +19,8 @@ use LaunchDarkly\Migrations\OpTracker;
 use LaunchDarkly\Migrations\Stage;
 use LaunchDarkly\Subsystems\FeatureRequester;
 use LaunchDarkly\Types\ApplicationInfo;
-use Monolog\Handler\ErrorLogHandler;
-use Monolog\Logger;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * A client for the LaunchDarkly API.
@@ -119,7 +118,7 @@ class LDClient
         }
 
         if (!isset($options['logger'])) {
-            $logger = new Logger("LaunchDarkly", [new ErrorLogHandler()]);
+            $logger = class_exists('Monolog\Logger') ? new Monolog\Logger("LaunchDarkly", [new Monolog\Handler\ErrorLogHandler()]) : new NullLogger;
             $options['logger'] = $logger;
         }
 
