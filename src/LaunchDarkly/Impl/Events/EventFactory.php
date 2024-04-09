@@ -35,7 +35,7 @@ class EventFactory
         FeatureFlag $flag,
         LDContext $context,
         EvalResult $result,
-        mixed $default,
+        $default,
         ?FeatureFlag $prereqOfFlag = null
     ): array {
         $detail = $result->getDetail();
@@ -108,7 +108,7 @@ class EventFactory
     /**
      * @return mixed[]
      */
-    public function newCustomEvent(string $eventName, LDContext $context, mixed $data, $metricValue): array
+    public function newCustomEvent(string $eventName, LDContext $context, $data, $metricValue): array
     {
         $e = [
             'kind' => 'custom',

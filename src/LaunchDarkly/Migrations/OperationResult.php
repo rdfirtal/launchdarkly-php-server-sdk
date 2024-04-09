@@ -12,17 +12,22 @@ use LaunchDarkly\Types\Result;
  */
 class OperationResult
 {
-    public readonly mixed $value;
-    public readonly ?string $error;
-    public readonly ?Exception $exception;
+    public $value;
+    public ?string $error;
+    public ?Exception $exception;
+
+    public Origin $origin;
+    private Result $result;
 
     public function __construct(
-        public readonly Origin $origin,
-        private readonly Result $result
+        Origin $origin,
+        Result $result
     ) {
         $this->value = $result->value;
         $this->error = $result->error;
         $this->exception = $result->exception;
+        $this->origin = $origin;
+        $this->result = $result;
     }
 
     /**

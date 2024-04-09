@@ -19,6 +19,9 @@ use Exception;
  */
 final class Result
 {
+    public $value;
+    public ?string $error = null;
+    public ?Exception $exception = null;
     /**
      * This constructor should be considered private. Consumers of this class
      * should use one of the two factory methods provided. Direct
@@ -30,16 +33,19 @@ final class Result
      *   include an exception.
      */
     private function __construct(
-        public readonly mixed $value,
-        public readonly ?string $error = null,
-        public readonly ?Exception $exception = null
+        $value,
+        ?string $error = null,
+        ?Exception $exception = null
     ) {
+        $this->value = $value;
+        $this->error = $error;
+        $this->exception = $exception;
     }
 
     /**
      * Construct a successful result containing the provided value.
      */
-    public static function success(mixed $value): Result
+    public static function success($value): Result
     {
         return new Result($value);
     }

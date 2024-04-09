@@ -162,7 +162,7 @@ class EvaluatorHelpers
         return false;
     }
 
-    private static function matchAnyClauseValue(Clause $clause, mixed $contextValue): bool
+    private static function matchAnyClauseValue(Clause $clause, $contextValue): bool
     {
         $op = $clause->getOp();
         foreach ($clause->getValues() as $v) {

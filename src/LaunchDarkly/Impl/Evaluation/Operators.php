@@ -24,7 +24,7 @@ class Operators
     /** @var string */
     const VERSION_NUMBERS_REGEX = '/^\\d+(\\.\\d+)?(\\.\\d+)?/';
 
-    public static function apply(?string $op, mixed $u, mixed $c): bool
+    public static function apply(?string $op, $u, $c): bool
     {
         try {
             if ($u === null || $c === null) {
@@ -110,7 +110,7 @@ class Operators
         return false;
     }
 
-    private static function semver_operator(mixed $u, mixed $c, int $expectedComparisonResult): bool
+    private static function semver_operator($u, $c, int $expectedComparisonResult): bool
     {
         if (!is_string($u) || !is_string($c)) {
             return false;

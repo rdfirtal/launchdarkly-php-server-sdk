@@ -198,7 +198,7 @@ class LDClient
      * @return mixed The variation for the given context, or `$defaultValue` if the flag cannot be evaluated
      * @see \LaunchDarkly\LDClient::variationDetail()
      */
-    public function variation(string $key, LDContext $context, mixed $defaultValue = false): mixed
+    public function variation(string $key, LDContext $context, $defaultValue = false)
     {
         $detail = $this->variationDetailInternal($key, $context, $defaultValue, $this->_eventFactoryDefault)['detail'];
         return $detail->getValue();
@@ -218,7 +218,7 @@ class LDClient
      * @return EvaluationDetail An EvaluationDetail object that includes the feature flag value
      * and evaluation reason
      */
-    public function variationDetail(string $key, LDContext $context, mixed $defaultValue = false): EvaluationDetail
+    public function variationDetail(string $key, LDContext $context, $defaultValue = false): EvaluationDetail
     {
         return $this->variationDetailInternal($key, $context, $defaultValue, $this->_eventFactoryWithReasons)['detail'];
     }
@@ -286,7 +286,7 @@ class LDClient
      *
      * @psalm-return array{'detail': EvaluationDetail, 'flag': ?FeatureFlag}
      */
-    private function variationDetailInternal(string $key, LDContext $context, mixed $default, EventFactory $eventFactory): array
+    private function variationDetailInternal(string $key, LDContext $context, $default, EventFactory $eventFactory): array
     {
         $default = $this->_get_default($key, $default);
 
@@ -387,7 +387,7 @@ class LDClient
      * @param int|float|null $metricValue A numeric value used by the LaunchDarkly experimentation feature in
      *   numeric custom metrics; can be omitted if this event is used by only non-numeric metrics
      */
-    public function track(string $eventName, LDContext $context, mixed $data = null, $metricValue = null): void
+    public function track(string $eventName, LDContext $context, $data = null, $metricValue = null): void
     {
         if (!$context->isValid()) {
             $this->_logger->warning("Track called with null/empty user key!");
@@ -535,7 +535,7 @@ class LDClient
         }
     }
 
-    protected function _get_default(string $key, mixed $default): mixed
+    protected function _get_default(string $key, $default)
     {
         if (array_key_exists($key, $this->_defaults)) {
             return $this->_defaults[$key];

@@ -221,7 +221,7 @@ class FlagBuilder
      * @return FlagBuilder the flag builder
      * @see \LaunchDarkly\Integrations\TestData\FlagBuilder::variationForAll()
      */
-    public function valueForAll(mixed $value): FlagBuilder
+    public function valueForAll($value): FlagBuilder
     {
         return $this->variations($value)->variationForAll(0);
     }

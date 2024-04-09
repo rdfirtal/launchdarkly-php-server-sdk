@@ -9,9 +9,14 @@ namespace LaunchDarkly\Migrations;
  */
 class WriteResult
 {
+    public OperationResult $authoritative;
+    public ?OperationResult $nonauthoritative;
+
     public function __construct(
-        public readonly OperationResult $authoritative,
-        public readonly ?OperationResult $nonauthoritative = null
+        OperationResult $authoritative,
+        ?OperationResult $nonauthoritative = null
     ) {
+        $this->authoritative = $authoritative;
+        $this->nonauthoritative = $nonauthoritative;
     }
 }

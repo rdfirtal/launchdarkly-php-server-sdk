@@ -15,15 +15,22 @@ use LaunchDarkly\Types\Result;
  */
 class MigrationConfig
 {
+    public Closure $old;
+    public Closure $new;
+    public ?Closure $comparison;
+
     /**
      * @param Closure(mixed): Result $old
      * @param Closure(mixed): Result $new
      * @param ?Closure(mixed, mixed): bool $comparison
      */
     public function __construct(
-        public readonly Closure $old,
-        public readonly Closure $new,
-        public readonly ?Closure $comparison = null
+        Closure $old,
+        Closure $new,
+        ?Closure $comparison = null
     ) {
+        $this->old = $old;
+        $this->new = $new;
+        $this->comparison = $comparison;
     }
 }

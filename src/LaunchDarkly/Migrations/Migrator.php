@@ -34,7 +34,7 @@ class Migrator
         string $key,
         LDContext $context,
         Stage $defaultStage,
-        mixed $payload = null
+        $payload = null
     ): OperationResult {
         $variationResult = $this->client->migrationVariation($key, $context, $defaultStage);
         /** @var Stage */
@@ -67,7 +67,7 @@ class Migrator
         string $key,
         LDContext $context,
         Stage $defaultStage,
-        mixed $payload = null
+        $payload = null
     ): WriteResult {
         $variationResult = $this->client->migrationVariation($key, $context, $defaultStage);
         /** @var Stage */

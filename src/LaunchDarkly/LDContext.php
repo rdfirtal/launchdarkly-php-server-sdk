@@ -478,7 +478,7 @@ class LDContext implements \JsonSerializable
      * @return mixed the attribute value, or null if there is no such attribute
      * @see \LaunchDarkly\LDContextBuilder::set()
      */
-    public function get(string $attributeName): mixed
+    public function get(string $attributeName)
     {
         switch ($attributeName) {
             case 'key':

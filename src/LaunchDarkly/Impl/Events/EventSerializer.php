@@ -119,7 +119,7 @@ class EventSerializer
         return false;
     }
 
-    private static function redactJsonValue(?array $parentPath, string $name, mixed $value, array $allPrivate, array &$redactedOut): mixed
+    private static function redactJsonValue(?array $parentPath, string $name, $value, array $allPrivate, array &$redactedOut)
     {
         if (!is_array($value) || count($value) === 0) {
             return $value;

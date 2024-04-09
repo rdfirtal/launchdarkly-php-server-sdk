@@ -96,7 +96,7 @@ class FeatureFlagsState implements \JsonSerializable
      * @param string $key the feature flag key
      * @return mixed the flag's value; null if the flag returned the default value, or if there was no such flag
      */
-    public function getFlagValue(string $key): mixed
+    public function getFlagValue(string $key)
     {
         return $this->_flagValues[$key] ?? null;
     }

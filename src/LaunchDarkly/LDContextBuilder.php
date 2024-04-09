@@ -203,7 +203,7 @@ class LDContextBuilder
      * @see \LaunchDarkly\LDContext::get()
      * @see \LaunchDarkly\LDContextBuilder::trySet()
      */
-    public function set(string $attributeName, mixed $value): LDContextBuilder
+    public function set(string $attributeName, $value): LDContextBuilder
     {
         $this->trySet($attributeName, $value);
         return $this;
@@ -218,7 +218,7 @@ class LDContextBuilder
      *   allowed type for that attribute
      * @see \LaunchDarkly\LDContextBuilder::set()
      */
-    public function trySet(string $attributeName, mixed $value): bool
+    public function trySet(string $attributeName, $value): bool
     {
         switch ($attributeName) {
             case 'key':

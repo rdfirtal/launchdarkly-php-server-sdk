@@ -18,17 +18,30 @@ use LaunchDarkly\Types\Result;
  */
 class Executor
 {
+    private Closure $fn;
+    private OpTracker $tracker;
+    private bool $trackLatency;
+    private bool $trackErrors;
+    private $payload;
+    private Origin $origin;
+
     /**
      * @param Closure(mixed): Result $fn
      */
     public function __construct(
-        public readonly Origin $origin,
-        private Closure $fn,
-        private OpTracker $tracker,
-        private bool $trackLatency,
-        private bool $trackErrors,
-        private mixed $payload,
+        Closure $fn,
+        OpTracker $tracker,
+        bool $trackLatency,
+        bool $trackErrors,
+        $payload,
+        Origin $origin
     ) {
+        $this->fn = $fn;
+        $this->tracker = $tracker;
+        $this->trackLatency = $trackLatency;
+        $this->trackErrors = $trackErrors;
+        $this->payload = $payload;
+        $this->origin = $origin;
     }
 
     public function run(): OperationResult

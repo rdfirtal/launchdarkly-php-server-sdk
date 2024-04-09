@@ -14,8 +14,11 @@ namespace LaunchDarkly\Impl\Model;
  */
 class MigrationSettings
 {
-    public function __construct(private readonly ?int $checkRatio = null)
+    private ?int $checkRatio;
+
+    public function __construct(?int $checkRatio = null)
     {
+        $this->checkRatio = $checkRatio;
     }
 
     public function getCheckRatio(): int
