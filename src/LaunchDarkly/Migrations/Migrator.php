@@ -25,9 +25,12 @@ class Migrator
     private bool $trackLatency;
     private bool $trackErrors;
 
+    /**
+     * @param \LaunchDarkly\Migrations\ExecutionOrder::* $executionOrder
+     */
     public function __construct(
         LDClient $client,
-        ExecutionOrder $executionOrder,
+        $executionOrder,
         MigrationConfig $readConfig,
         MigrationConfig $writeConfig,
         bool $trackLatency,
@@ -43,11 +46,12 @@ class Migrator
 
     /**
      * Uses the provided flag key and context to execute a migration-backed read operation.
+     * @param \LaunchDarkly\Migrations\Stage::* $defaultStage
      */
     public function read(
         string $key,
         LDContext $context,
-        Stage $defaultStage,
+        string $defaultStage,
         $payload = null
     ): OperationResult {
         $variationResult = $this->client->migrationVariation($key, $context, $defaultStage);
@@ -60,14 +64,26 @@ class Migrator
         $old = new Executor(Origin::OLD, $this->readConfig->old, $tracker, $this->trackLatency, $this->trackErrors, $payload);
         $new = new Executor(Origin::NEW, $this->readConfig->new, $tracker, $this->trackLatency, $this->trackErrors, $payload);
 
-        $result = match ($stage) {
-            Stage::OFF => $old->run(),
-            Stage::DUALWRITE => $old->run(),
-            Stage::SHADOW => $this->readBoth($old, $new, $tracker),
-            Stage::LIVE => $this->readBoth($new, $old, $tracker),
-            Stage::RAMPDOWN => $new->run(),
-            Stage::COMPLETE => $new->run(),
-        };
+        switch ($stage) {
+            case Stage::OFF:
+                $result = $old->run();
+                break;
+            case Stage::DUALWRITE:
+                $result = $old->run();
+                break;
+            case Stage::SHADOW:
+                $result = $this->readBoth($old, $new, $tracker);
+                break;
+            case Stage::LIVE:
+                $result = $this->readBoth($new, $old, $tracker);
+                break;
+            case Stage::RAMPDOWN:
+                $result = $new->run();
+                break;
+            case Stage::COMPLETE:
+                $result = $new->run();
+                break;
+        }
 
         $this->client->trackMigrationOperation($tracker);
 
@@ -76,11 +92,12 @@ class Migrator
 
     /**
      * Uses the provided flag key and context to execute a migration-backed write operation.
+     * @param \LaunchDarkly\Migrations\Stage::* $defaultStage
      */
     public function write(
         string $key,
         LDContext $context,
-        Stage $defaultStage,
+        string $defaultStage,
         $payload = null
     ): WriteResult {
         $variationResult = $this->client->migrationVariation($key, $context, $defaultStage);
@@ -93,14 +110,26 @@ class Migrator
         $old = new Executor(Origin::OLD, $this->writeConfig->old, $tracker, $this->trackLatency, $this->trackErrors, $payload);
         $new = new Executor(Origin::NEW, $this->writeConfig->new, $tracker, $this->trackLatency, $this->trackErrors, $payload);
 
-        $writeResult = match ($stage) {
-            Stage::OFF => new WriteResult($old->run()),
-            Stage::DUALWRITE => $this->writeBoth($old, $new, $tracker),
-            Stage::SHADOW => $this->writeBoth($old, $new, $tracker),
-            Stage::LIVE => $this->writeBoth($new, $old, $tracker),
-            Stage::RAMPDOWN => $this->writeBoth($new, $old, $tracker),
-            Stage::COMPLETE => new WriteResult($new->run()),
-        };
+        switch ($stage) {
+            case Stage::OFF:
+                $writeResult = new WriteResult($old->run());
+                break;
+            case Stage::DUALWRITE:
+                $writeResult = $this->writeBoth($old, $new, $tracker);
+                break;
+            case Stage::SHADOW:
+                $writeResult = $this->writeBoth($old, $new, $tracker);
+                break;
+            case Stage::LIVE:
+                $writeResult = $this->writeBoth($new, $old, $tracker);
+                break;
+            case Stage::RAMPDOWN:
+                $writeResult = $this->writeBoth($new, $old, $tracker);
+                break;
+            case Stage::COMPLETE:
+                $writeResult = new WriteResult($new->run());
+                break;
+        }
 
         $this->client->trackMigrationOperation($tracker);
 

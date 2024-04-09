@@ -42,27 +42,8 @@ class FeatureFlag
     // the PHP client doesn't do summary events. However, we need to capture them in case
     // they want to pass the flag data to the front end with allFlagsState().
 
-    public function __construct(
-        string $key,
-        int $version,
-        bool $on,
-        array $prerequisites,
-        string $salt,
-        array $targets,
-        array $contextTargets,
-        array $rules,
-        VariationOrRollout $fallthrough,
-        ?int $offVariation,
-        array $variations,
-        bool $deleted,
-        bool $trackEvents,
-        bool $trackEventsFallthrough,
-        ?int $debugEventsUntilDate,
-        bool $clientSide,
-        ?int $samplingRatio,
-        bool $excludeFromSummaries,
-        ?MigrationSettings $migrationSettings,
-    ) {
+    public function __construct(string $key, int $version, bool $on, array $prerequisites, string $salt, array $targets, array $contextTargets, array $rules, VariationOrRollout $fallthrough, ?int $offVariation, array $variations, bool $deleted, bool $trackEvents, bool $trackEventsFallthrough, ?int $debugEventsUntilDate, bool $clientSide, ?int $samplingRatio, bool $excludeFromSummaries, ?MigrationSettings $migrationSettings)
+    {
         $this->_key = $key;
         $this->_version = $version;
         $this->_on = $on;

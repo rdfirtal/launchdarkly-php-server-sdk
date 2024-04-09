@@ -233,8 +233,9 @@ class LDClient
      * instead.
      *
      * @psalm-return array{'stage': Stage, 'tracker': OpTracker}
+     * @param \LaunchDarkly\Migrations\Stage::* $defaultStage
      */
-    public function migrationVariation(string $key, LDContext $context, Stage $defaultStage): array
+    public function migrationVariation(string $key, LDContext $context, string $defaultStage): array
     {
         $result = $this->variationDetailInternal($key, $context, $defaultStage->value, $this->_eventFactoryDefault);
         /** @var EvaluationDetail $detail */

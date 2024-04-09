@@ -60,7 +60,7 @@ class AttributeReference
         if ($refPath === '' || $refPath === '/') {
             return self::failed($refPath, self::ERR_ATTR_EMPTY);
         }
-        if (!str_starts_with($refPath, '/')) {
+        if (strncmp($refPath, '/', strlen('/')) !== 0) {
             return new AttributeReference($refPath, $refPath, null, null);
         }
         $components = explode('/', substr($refPath, 1));
@@ -104,7 +104,7 @@ class AttributeReference
         // If the attribute name starts with a slash, we need to compute the escaped version so
         // getPath() will always return a valid attribute reference path. This matters because
         // lists of redacted attributes in events always use the path format.
-        $refPath = str_starts_with($attributeName, '/') ?
+        $refPath = strncmp($attributeName, '/', strlen('/')) === 0 ?
             ('/' . self::escape($attributeName)) :
             $attributeName;
         return new AttributeReference($refPath, $attributeName, null, null);

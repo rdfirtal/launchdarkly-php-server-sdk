@@ -27,6 +27,7 @@ class Executor
 
     /**
      * @param Closure(mixed): Result $fn
+     * @param \LaunchDarkly\Migrations\Origin::* $origin
      */
     public function __construct(
         Closure $fn,
@@ -34,7 +35,7 @@ class Executor
         bool $trackLatency,
         bool $trackErrors,
         $payload,
-        Origin $origin
+        string $origin
     ) {
         $this->fn = $fn;
         $this->tracker = $tracker;

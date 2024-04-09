@@ -36,12 +36,15 @@ class OpTracker
     private EvaluationDetail $detail;
     private Stage $default_stage;
 
+    /**
+     * @param \LaunchDarkly\Migrations\Stage::* $default_stage
+     */
     public function __construct(
         LoggerInterface $logger,
         ?Impl\Model\FeatureFlag $flag,
         LDContext $context,
         EvaluationDetail $detail,
-        Stage $default_stage
+        string $default_stage
     ) {
         $this->logger = $logger;
         $this->flag = $flag;
@@ -55,8 +58,9 @@ class OpTracker
 
     /**
      * Sets the migration related Operation associated with these tracking measurements.
+     * @param \LaunchDarkly\Migrations\Operation::* $operation
      */
-    public function operation(Operation $operation): OpTracker
+    public function operation(string $operation): OpTracker
     {
         $this->operation = $operation;
         return $this;
@@ -64,8 +68,9 @@ class OpTracker
 
     /**
      * Allows recording which {@see Origin}s were called during a migration.
+     * @param \LaunchDarkly\Migrations\Origin::* $origin
      */
-    public function invoked(Origin $origin): OpTracker
+    public function invoked(string $origin): OpTracker
     {
         $this->invoked[$origin->value] = true;
         return $this;
@@ -102,9 +107,10 @@ class OpTracker
     }
 
     /**
-    * Allows recording whether an error occurred during the operation.
-    */
-    public function error(Origin $origin): OpTracker
+     * Allows recording whether an error occurred during the operation.
+     * @param \LaunchDarkly\Migrations\Origin::* $origin
+     */
+    public function error(string $origin): OpTracker
     {
         $this->errors[$origin->value] = true;
         return $this;
@@ -113,8 +119,9 @@ class OpTracker
 
     /**
      * Allows tracking the recorded latency for an individual operation.
+     * @param \LaunchDarkly\Migrations\Origin::* $origin
      */
-    public function latency(Origin $origin, float $elapsedMs): OpTracker
+    public function latency(string $origin, float $elapsedMs): OpTracker
     {
         $this->latencies[$origin->value] = $elapsedMs;
         return $this;

@@ -34,8 +34,9 @@ class MigratorBuilder
     /**
      * The read execution order influences the parallelism and execution order
      * for read operations involving multiple origins.
+     * @param \LaunchDarkly\Migrations\ExecutionOrder::* $order
      */
-    public function readExecutionOrder(ExecutionOrder $order): MigratorBuilder
+    public function readExecutionOrder($order): MigratorBuilder
     {
         $this->readExecutionOrder = $order;
         return $this;

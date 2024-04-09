@@ -301,10 +301,10 @@ class FlagBuilder
      *
      *     $td->flag('new-flag')->variations('red', 'green', 'blue')
      *
-     * @param mixed[] $variations the the desired variations
+     * @param mixed $variations the the desired variations
      * @return FlagBuilder the flag builder object
      */
-    public function variations(mixed ...$variations): FlagBuilder
+    public function variations(...$variations): FlagBuilder
     {
         $validatedVariations = [];
         foreach ($variations as $value) {
@@ -328,12 +328,12 @@ class FlagBuilder
      *         ->thenReturn(true);
      *
      * @param string $attribute the user attribute to match against
-     * @param mixed[] $values values to compare to
+     * @param mixed $values values to compare to
      * @return FlagRuleBuilder call `thenReturn(boolean)` or
      *   `thenReturn(int)` to finish the rule, or add more tests with another
      *   method like `andMatch()`
      */
-    public function ifMatch(string $attribute, mixed ...$values): FlagRuleBuilder
+    public function ifMatch(string $attribute, ...$values): FlagRuleBuilder
     {
         return $this->ifMatchContext(LDContext::DEFAULT_KIND, $attribute, ...$values);
     }
@@ -351,12 +351,12 @@ class FlagBuilder
      *
      * @param string $contextKind the context kind
      * @param string $attribute the context attribute to match against
-     * @param mixed[] $values values to compare to
+     * @param mixed $values values to compare to
      * @return FlagRuleBuilder call `thenReturn(boolean)` or
      *   `thenReturn(int)` to finish the rule, or add more tests with another
      *   method like `andMatch()`
      */
-    public function ifMatchContext(string $contextKind, string $attribute, mixed ...$values): FlagRuleBuilder
+    public function ifMatchContext(string $contextKind, string $attribute, ...$values): FlagRuleBuilder
     {
         $flagRuleBuilder = new FlagRuleBuilder($this);
         return $flagRuleBuilder->andMatchContext($contextKind, $attribute, ...$values);
@@ -375,12 +375,12 @@ class FlagBuilder
      *             ->thenReturn(true);
      *
      * @param string $attribute the context attribute to match against
-     * @param mixed[] $values values to compare to
+     * @param mixed $values values to compare to
      * @return FlagRuleBuilder call `thenReturn(boolean)` or
      *   `thenReturn(int)` to finish the rule, or add more tests with another
      *   method like `andMatch()`
      */
-    public function ifNotMatch(string $attribute, mixed ...$values): FlagRuleBuilder
+    public function ifNotMatch(string $attribute, ...$values): FlagRuleBuilder
     {
         return $this->ifNotMatchContext(LDContext::DEFAULT_KIND, $attribute, ...$values);
     }
@@ -400,12 +400,12 @@ class FlagBuilder
      *
      * @param string $contextKind the context kind
      * @param string $attribute the context attribute to match against
-     * @param mixed[] $values values to compare to
+     * @param mixed $values values to compare to
      * @return FlagRuleBuilder call `thenReturn(boolean)` or
      *   `thenReturn(int)` to finish the rule, or add more tests with another
      *   method like `andMatch()`
      */
-    public function ifNotMatchContext(string $contextKind, string $attribute, mixed ...$values): FlagRuleBuilder
+    public function ifNotMatchContext(string $contextKind, string $attribute, ...$values): FlagRuleBuilder
     {
         $flagRuleBuilder = new FlagRuleBuilder($this);
         return $flagRuleBuilder->andNotMatchContext($contextKind, $attribute, ...$values);
@@ -517,7 +517,7 @@ class FlagBuilder
             $baseFlagObject['rules'][] = $rule->build($idx);
         }
 
-        $migrationSettings = $this->_migrationSettingsBuilder?->build() ?? [];
+        $migrationSettings = (($nullsafeVariable1 = $this->_migrationSettingsBuilder) ? $nullsafeVariable1->build() : null) ?? [];
         if (!empty($migrationSettings)) {
             $baseFlagObject['migration'] = $migrationSettings;
         }

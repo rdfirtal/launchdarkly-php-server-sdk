@@ -130,7 +130,7 @@ class Operators
      * @param mixed $value
      * @return bool
      */
-    public static function is_numeric(mixed $value): bool
+    public static function is_numeric($value): bool
     {
         return is_numeric($value) && !is_string($value);
     }
@@ -139,7 +139,7 @@ class Operators
      * @param mixed $in
      * @return ?int
      */
-    public static function parseTime(mixed $in): ?int
+    public static function parseTime($in): ?int
     {
         if (is_string($in)) {
             $dateTime = DateTime::createFromFormat(DateTimeInterface::RFC3339_EXTENDED, $in);

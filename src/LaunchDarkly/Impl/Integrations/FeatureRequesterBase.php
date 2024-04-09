@@ -140,10 +140,10 @@ class FeatureRequesterBase implements FeatureRequester
     protected function getJsonItem(string $namespace, string $key): ?array
     {
         $cacheKey = $this->makeCacheKey($namespace, $key);
-        $raw = $this->_cache?->getCachedString($cacheKey);
+        $raw = ($nullsafeVariable1 = $this->_cache) ? $nullsafeVariable1->getCachedString($cacheKey) : null;
         if ($raw === null) {
             $raw = $this->readItemString($namespace, $key);
-            $this->_cache?->putCachedString($cacheKey, $raw);
+            ($nullsafeVariable2 = $this->_cache) ? $nullsafeVariable2->putCachedString($cacheKey, $raw) : null;
         }
         return ($raw === null) ? null : json_decode($raw, true);
     }
@@ -151,7 +151,7 @@ class FeatureRequesterBase implements FeatureRequester
     protected function getJsonItemList(string $namespace): array
     {
         $cacheKey = $this->makeCacheKey($namespace, self::ALL_ITEMS_KEY);
-        $raw = $this->_cache?->getCachedString($cacheKey);
+        $raw = ($nullsafeVariable3 = $this->_cache) ? $nullsafeVariable3->getCachedString($cacheKey) : null;
         if ($raw) {
             $values = json_decode($raw, true);
         } else {
@@ -159,7 +159,7 @@ class FeatureRequesterBase implements FeatureRequester
             if (!$values) {
                 $values = [];
             }
-            $this->_cache?->putCachedString($cacheKey, json_encode($values));
+            ($nullsafeVariable4 = $this->_cache) ? $nullsafeVariable4->putCachedString($cacheKey, json_encode($values)) : null;
         }
         foreach ($values as $i => $s) {
             $values[$i] = json_decode($s, true);

@@ -19,8 +19,11 @@ class OperationResult
     public Origin $origin;
     private Result $result;
 
+    /**
+     * @param \LaunchDarkly\Migrations\Origin::* $origin
+     */
     public function __construct(
-        Origin $origin,
+        string $origin,
         Result $result
     ) {
         $this->value = $result->value;

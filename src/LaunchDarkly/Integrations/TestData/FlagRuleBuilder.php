@@ -50,10 +50,10 @@ class FlagRuleBuilder
      *              ->thenReturn(true);
      *
      * @param string $attribute the user attribute to match against
-     * @param mixed[] $values values to compare to
+     * @param mixed $values values to compare to
      * @return FlagRuleBuilder the rule builder
      */
-    public function andMatch(string $attribute, mixed ...$values)
+    public function andMatch(string $attribute, ...$values)
     {
         return $this->andMatchContext(LDContext::DEFAULT_KIND, $attribute, ...$values);
     }
@@ -71,10 +71,10 @@ class FlagRuleBuilder
      *              ->thenReturn(true);
      *
      * @param string $attribute the user attribute to match against
-     * @param mixed[] $values values to compare to
+     * @param mixed $values values to compare to
      * @return FlagRuleBuilder the rule builder
      */
-    public function andMatchContext(string $contextKind, string $attribute, mixed ...$values)
+    public function andMatchContext(string $contextKind, string $attribute, ...$values)
     {
         $newClause = [
             "contextKind" => $contextKind,
@@ -102,10 +102,10 @@ class FlagRuleBuilder
      *             ->thenReturn(true);
      *
      * @param string $attribute the user attribute to match against
-     * @param mixed[] $values values to compare to
+     * @param mixed $values values to compare to
      * @return FlagRuleBuilder the rule builder
      */
-    public function andNotMatch(string $attribute, mixed ...$values)
+    public function andNotMatch(string $attribute, ...$values)
     {
         return $this->andNotMatchContext(LDContext::DEFAULT_KIND, $attribute, ...$values);
     }
@@ -123,10 +123,10 @@ class FlagRuleBuilder
      *             ->thenReturn(true);
      *
      * @param string $attribute the user attribute to match against
-     * @param mixed[] $values values to compare to
+     * @param mixed $values values to compare to
      * @return FlagRuleBuilder the rule builder
      */
-    public function andNotMatchContext(string $contextKind, string $attribute, mixed ...$values)
+    public function andNotMatchContext(string $contextKind, string $attribute, ...$values)
     {
         $newClause = [
             "contextKind" => $contextKind,
