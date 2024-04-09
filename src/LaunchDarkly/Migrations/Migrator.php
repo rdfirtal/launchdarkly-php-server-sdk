@@ -17,14 +17,28 @@ use LaunchDarkly\LDContext;
  */
 class Migrator
 {
+
+    private LDClient $client;
+    private ExecutionOrder $executionOrder;
+    private MigrationConfig $readConfig;
+    private MigrationConfig $writeConfig;
+    private bool $trackLatency;
+    private bool $trackErrors;
+
     public function __construct(
-        private LDClient $client,
-        private ExecutionOrder $executionOrder,
-        private MigrationConfig $readConfig,
-        private MigrationConfig $writeConfig,
-        private bool $trackLatency,
-        private bool $trackErrors,
+        LDClient $client,
+        ExecutionOrder $executionOrder,
+        MigrationConfig $readConfig,
+        MigrationConfig $writeConfig,
+        bool $trackLatency,
+        bool $trackErrors
     ) {
+        $this->client = $client;
+        $this->executionOrder = $executionOrder;
+        $this->readConfig = $readConfig;
+        $this->writeConfig = $writeConfig;
+        $this->trackLatency = $trackLatency;
+        $this->trackErrors = $trackErrors;
     }
 
     /**

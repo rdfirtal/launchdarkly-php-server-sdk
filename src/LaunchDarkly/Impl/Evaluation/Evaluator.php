@@ -24,9 +24,12 @@ class EvaluatorState
 {
     public ?array $prerequisiteStack = null;
     public ?array $segmentStack = null;
+
+    public FeatureFlag $originalFlag;
     
-    public function __construct(public FeatureFlag $originalFlag)
+    public function __construct(FeatureFlag $originalFlag)
     {
+        $this->originalFlag = $originalFlag;
     }
 }
 

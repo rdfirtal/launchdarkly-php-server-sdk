@@ -24,8 +24,11 @@ class MigratorBuilder
     private ?MigrationConfig $readConfig = null;
     private ?MigrationConfig $writeConfig = null;
 
-    public function __construct(private LDClient $client)
+    private LDClient $client;
+
+    public function __construct(LDClient $client)
     {
+        $this->client = $client;
     }
 
     /**

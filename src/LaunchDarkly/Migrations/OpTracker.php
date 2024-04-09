@@ -30,15 +30,25 @@ class OpTracker
     private array $errors = [];
     private array $latencies = [];
 
+    private LoggerInterface $logger;
+    private ?Impl\Model\FeatureFlag $flag;
+    private LDContext $context;
+    private EvaluationDetail $detail;
+    private Stage $default_stage;
+
     public function __construct(
-        private LoggerInterface $logger,
-        private string $key,
-        private ?Impl\Model\FeatureFlag $flag,
-        private LDContext $context,
-        private EvaluationDetail $detail,
-        private Stage $default_stage
+        LoggerInterface $logger,
+        ?Impl\Model\FeatureFlag $flag,
+        LDContext $context,
+        EvaluationDetail $detail,
+        Stage $default_stage
     ) {
-        $this->consistentRatio = $flag?->getMigrationSettings()?->getCheckRatio() ?? 1;
+        $this->logger = $logger;
+        $this->flag = $flag;
+        $this->context = $context;
+        $this->detail = $detail;
+        $this->default_stage = $default_stage;
+        $this->consistentRatio = $flag ? $flag->getMigrationSettings()->getCheckRatio() : 1;
     }
 
 
