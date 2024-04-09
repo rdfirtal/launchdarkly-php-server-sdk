@@ -34,7 +34,7 @@ class Files
      * @param string|string[] $filePaths relative or absolute paths to the data files
      * @return mixed  an object to be stored in the `feature_requester` configuration property
      */
-    public static function featureRequester($filePaths): mixed
+    public static function featureRequester($filePaths)
     {
         return new \LaunchDarkly\Impl\Integrations\FileDataFeatureRequester($filePaths);
     }

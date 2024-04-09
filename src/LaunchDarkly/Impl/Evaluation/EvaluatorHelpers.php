@@ -48,7 +48,7 @@ class EvaluatorHelpers
         LDContext $context,
         string $attributeRef,
         ?string $forContextKind
-    ): mixed {
+    ) {
         $parsed = ($forContextKind === null || $forContextKind === '') ?
             // If no context kind was specified, treat the attribute as just an attribute name, not a reference path
             AttributeReference::fromLiteral($attributeRef) :
